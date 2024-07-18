@@ -7,7 +7,7 @@ replicaCount: 1
 
 # Application image details
 image:
-  # the image registry/repository to pull the image from - in our case it's a default registry used by k8s
+  # the image registry/repository to pull the image from
   repository: crccheck/hello-world
   # the image tag to use - can be overridden in the deployment
   tag: latest
