@@ -1,0 +1,36 @@
+# to override hello-world.fullname template, used for naming of deploy, ingress and service.
+fullnameOverride: ""
+# to override the Chart.name part in the hello-world.fullname/name templates
+nameOverride: ""
+# determine the # of pod replicas in replicaSet from the Deployment
+replicaCount: 1
+
+# Application image details
+image:
+  # the image registry/repository to pull the image from
+  repository: crccheck/hello-world
+  # the image tag to use - can be overridden in the deployment
+  tag: latest
+  # pullPolicy: Always, Never, IfNotPresent
+  pullPolicy: IfNotPresent
+
+# service details
+service:
+  type: NodePort
+  port: 8000
+
+# ingress configurataion
+ingress:
+  enabled: true
+  # the type of load balancer to use - in our case it's alb
+  type: alb
+  className: alb
+  # Annotations for the aws-load-balancer-controller
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/inbound-cidrs: 5.29.154.57/32 # Tomer's specific home IP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+  hosts:
+  - host:
+    paths:
+    - /
